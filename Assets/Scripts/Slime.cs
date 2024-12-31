@@ -9,10 +9,13 @@ public class Slime : MonoBehaviour
     [SerializeField] private float danhoAtaque;
     private Vector3 destinoActual;
     private int indiceActual = 0;
+
+    private Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         destinoActual = waypoints[indiceActual].position;
+        anim = GetComponent<Animator>();
         StartCoroutine(Patrulla());
     }
 
@@ -62,8 +65,10 @@ public class Slime : MonoBehaviour
         }
         else if (elOtro.gameObject.CompareTag("PlayerHitbox"))
         {
+            anim.SetTrigger("ataque");
             SistemaVidas sistemaVidas = elOtro.gameObject.GetComponent<SistemaVidas>();
             sistemaVidas.RecibirDanho(danhoAtaque);
         }
     }
+
 }
