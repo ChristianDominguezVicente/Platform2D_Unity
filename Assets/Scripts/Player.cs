@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,11 @@ public class Player : MonoBehaviour
     [SerializeField] private float danhoAtaque;
     [SerializeField] private LayerMask queEsDanhable;
 
+    [Header("Sistema de interaccion")]
+    [SerializeField] private Transform puntoDeteccion;
+    [SerializeField] private float radioDeteccion;
+    [SerializeField] private LayerMask queEsInteractuable;
+
     private Animator anim;
     // Start is called before the first frame update
     void Start()
@@ -33,6 +39,22 @@ public class Player : MonoBehaviour
         Movimiento();
         Saltar();
         LanzarAtaque();
+        Interactuar();
+    }
+
+    private void Interactuar()
+    {
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            Collider2D collDetectado = Physics2D.OverlapCircle(puntoDeteccion.position, radioDeteccion, queEsInteractuable);
+            if (collDetectado != null)
+            {
+                if (collDetectado.TryGetComponent(out IInteractuable interactuable))
+                {
+                    interactuable.Interactuar();
+                }
+            }
+        }
     }
 
     private void LanzarAtaque()
