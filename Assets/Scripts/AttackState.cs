@@ -10,6 +10,8 @@ public class AttackState : State<EnemyController>
     private Transform target;
 
     private float timer = 0;
+    private float danhoAtaque = 20;
+    private Player player;
 
     private Animator anim;
     public override void OnEnterState(EnemyController controller)
@@ -17,6 +19,7 @@ public class AttackState : State<EnemyController>
         base.OnEnterState(controller);
         timer = timeBetweenAttacks;
         anim = GetComponent<Animator>();
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
     public override void OnUpdateState()
     {
@@ -24,7 +27,7 @@ public class AttackState : State<EnemyController>
         if (timer > timeBetweenAttacks)
         {
             anim.SetTrigger("atacar");
-            timer = 0f;
+            timer = 0f;  
         }
         if (Vector3.Distance(transform.position, target.position) > attackDistance)
         {
@@ -43,6 +46,12 @@ public class AttackState : State<EnemyController>
         {
             target = player.transform;
         }
+    }
+
+    private void Danho()
+    {
+        SistemaVidas sistemaVidas = player.gameObject.GetComponent<SistemaVidas>();
+        sistemaVidas.RecibirDanho(danhoAtaque);
     }
 
 }

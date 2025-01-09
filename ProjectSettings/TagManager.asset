@@ -8,6 +8,11 @@ TagManager:
   - DeteccionPlayer
   - Coin
   - Door
+  - Meta
+  - Caida
+  - Monitor
+  - Life
+  - DJump
   layers:
   - Default
   - TransparentFX

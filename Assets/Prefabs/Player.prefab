@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidas: 100
+  barraVida: {fileID: 0}
 --- !u!212 &1983303173783604243
 SpriteRenderer:
   m_ObjectHideFlags: 0
