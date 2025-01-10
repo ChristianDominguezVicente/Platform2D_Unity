@@ -167,10 +167,32 @@ public class Player : MonoBehaviour
         {
             SistemaVidas sistemaVidas = gameObject.GetComponent<SistemaVidas>();
             sistemaVidas.Curar(cura);
+            AudioSource audioSource = elOtro.gameObject.GetComponent<AudioSource>();
+            if (audioSource != null && audioSource.clip != null)
+            {
+                GameObject tempAudio = new GameObject("TempAudio");
+                AudioSource tempAudioSource = tempAudio.AddComponent<AudioSource>();
+                tempAudioSource.clip = audioSource.clip;
+                tempAudioSource.volume = audioSource.volume;
+                tempAudioSource.pitch = audioSource.pitch;
+                tempAudioSource.Play();
+                Destroy(tempAudio, tempAudioSource.clip.length);
+            }
             Destroy(elOtro.gameObject);
         }
         else if (elOtro.gameObject.CompareTag("DJump"))
         {
+            AudioSource audioSource = elOtro.gameObject.GetComponent<AudioSource>();
+            if (audioSource != null && audioSource.clip != null)
+            {
+                GameObject tempAudio = new GameObject("TempAudio");
+                AudioSource tempAudioSource = tempAudio.AddComponent<AudioSource>();
+                tempAudioSource.clip = audioSource.clip;
+                tempAudioSource.volume = audioSource.volume;
+                tempAudioSource.pitch = audioSource.pitch;
+                tempAudioSource.Play();
+                Destroy(tempAudio, tempAudioSource.clip.length);
+            }
             Destroy(elOtro.gameObject);
             StartCoroutine(DJump(tiempo));
         }
